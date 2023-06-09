@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.75rem;
+    }
+
+    .highlight {
+      background-color: whitesmoke;
+      border-radius: 0.5rem;
+      padding: 0.4rem 0.5rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight--clone {
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    #phraseList {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #phraseList li {
+      display: inline-block;
+      line-height: 2.3rem;
+    }
+  </style>
+</head>
+<body>
+  <form id="phraseForm">
+    <textarea id="inputField" placeholder="Enter your phrases..."></textarea>
+    <input type="submit" value="Send">
+  </form>
+  <ul id="phraseList">
+  </ul>
+
+  <script>
+    document.getElementById('phraseForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var inputField = document.getElementById('inputField');
+      var phraseList = document.getElementById('phraseList');
+
+      // Split input text into lines
+      var lines = inputField.value.split('\n');
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        // Split each line into phrases
+        var phrases = line.split(';');
+        for (var j = 0; j < phrases.length; j++) {
+          var newPhrase = document.createElement('li');
+          var textSpan = document.createElement('span');
+          textSpan.textContent = phrases[j].trim();
+          textSpan.className = 'highlight highlight--clone';
+          newPhrase.appendChild(textSpan);
+          phraseList.appendChild(newPhrase);
+        }
+        // Add a line break after each line
+        var newLine = document.createElement('br');
+        phraseList.appendChild(newLine);
+      }
+
+      inputField.value = '';
+    });
+  </script>
+</body>
+</html>
